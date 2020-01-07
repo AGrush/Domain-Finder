@@ -331,6 +331,8 @@ header {
   justify-content: center;
 }
 
+
+
 #container1,
 #container2 {
   text-align: center;
@@ -427,4 +429,54 @@ p {
 }
 #clickMe2:focus {
   outline: none;
+}
+
+@media screen and (max-width: 767px){
+  h1{
+    font-size: 2.8rem;
+    left: 0;
+  }
+  .wrapper {
+    flex-direction: column;
+  }
+  #container2 {
+    padding-top: 27px;
+  }
+  #container1 {
+    padding-bottom: 20px;
+  }
+
+  .domCheckboxWrapper label {
+    left: -20px;
+  }
+
+  .domCheckboxWrapper {
+    padding: 10px;
+  }
+  
+  #clickMe2 {
+    padding-left: 52px;
+  }
+
+  #availableDomains {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 50px;
+    padding: 10px;
+    text-align: center;
+    border: 5px aliceblue solid;
+    border-bottom: none;
+    flex-wrap: nowrap;
+    height: initial;
+    justify-content: left;
+    line-height: 1.7;
+  }
+
+  .res {
+    max-width: initial;
+  }
+
+  #reverse {
+    left: -7px;
+  }
 }
