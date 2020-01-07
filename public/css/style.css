@@ -154,8 +154,6 @@
 }
 
 header {
-    margin: 50px;
-    margin-bottom: 0;
     text-align: center;
     mix-blend-mode: multiply;
   }
@@ -414,17 +412,15 @@ p {
 }
 
 #clickMe2 {
-  background-color: rgb(243, 227, 179);
+  background-color: transparent;
   border: none;
   cursor: pointer;
-  transform: translateX(-30%);
+  transform: translateX(-15%);
   font-size: 17px;
   padding-left: 12px;
   text-decoration: none;
 }
-#clickMe2:hover {
-  background-color: rgb(218, 230, 193);
-}
+
 #clickMe2:active {
   position: relative;
   top: 1px;
