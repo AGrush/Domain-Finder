@@ -1,0 +1,284 @@
+/* checkbox */
+/* The container */
+.container,
+.container4,
+.container5 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-variant: small-caps;
+  position: relative;
+  align-self: center;
+  cursor: pointer;
+  font-size: 22px;
+  width: 25px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark,
+.checkmarkcom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.checkmarkcom {
+  width: 64px;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark,
+.container4:hover input ~ .checkmarkcom,
+.container5:hover input ~ .checkmarkcom {
+  background-color: #ccc;
+  position: absolute;
+  left: 0;
+  color: #000;
+
+  /* border: lightgoldenrodyellow 3px solid; */
+}
+
+.container:hover input ~ .checkmark:after,
+.container:hover input ~ .checkmarkcom:after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 11px;
+  width: 9px;
+  height: 0px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: block;
+
+  /* border: lightgoldenrodyellow 3px solid; */
+}
+
+.container4:hover input ~ .checkmark:after,
+.container5:hover input ~ .checkmark:after {
+  content: "com";
+  position: absolute;
+  left: 7px;
+  top: 0px;
+  border-width: 0 3px 3px 0;
+  display: block;
+
+  /* border: lightgoldenrodyellow 3px solid; */
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark,
+.container4 input:checked ~ .checkmarkcom,
+.container5 input:checked ~ .checkmarkcom {
+  background-color: rgb(112, 179, 233);
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after,
+.container4
+  input:checked
+  ~ .checkmarkcom:after
+  .container5
+  input:checked
+  ~ .checkmarkcom:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 11px;
+  width: 9px;
+  height: 0px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: block;
+}
+
+.container4 .checkmarkcom:after,
+.container5 .checkmarkcom:after {
+  content: "com";
+  position: absolute;
+  left: 7px;
+  top: 2px;
+  font-size: 16px;
+  border-width: 0 3px 3px 0;
+  display: block;
+  color: #fff;
+}
+.container5 .checkmarkcom:after {
+  content: "co.uk";
+}
+
+.domCheckboxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-variant: small-caps;
+  text-align: center;
+  -webkit-animation: colorchange 100s infinite alternate;
+}
+
+@-webkit-keyframes colorchange {
+  0% {
+    color: rgb(174, 213, 151);
+  }
+
+  10% {
+    color: #8e44ad;
+  }
+
+  20% {
+    color: #1abc9c;
+  }
+
+  30% {
+    color: #e48748;
+  }
+
+  40% {
+    color: rgb(227, 93, 93);
+  }
+
+  50% {
+    color: #63affc;
+  }
+
+  60% {
+    color: rgb(230, 164, 225);
+  }
+
+  70% {
+    color: #4d8eba;
+  }
+  80% {
+    color: #82df95;
+  }
+
+  90% {
+    color: #feea85;
+  }
+
+  100% {
+    color: pink;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#container1,
+#container2 {
+  text-align: center;
+  width: 210px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px;
+  margin: 0 auto;
+}
+
+input {
+  display: inline;
+}
+
+.add {
+  background-color: #eee;
+  display: block;
+  width: 50px;
+  margin: 6px auto;
+  cursor: pointer;
+}
+
+.add:hover {
+  background-color: #ccc;
+}
+
+#availableDomains {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 50px;
+  padding: 10px;
+  border: 5px aliceblue solid;
+  flex-wrap: wrap;
+  height: 100vh;
+  justify-content: left;
+  line-height: 1.7;
+}
+
+.res {
+  margin-bottom: 5px;
+  max-width: 220px;
+  text-transform: lowercase;
+}
+
+.deletebtn {
+  width: 20px;
+  display: inline-block;
+  background-color: rgb(242, 175, 175);
+  cursor: pointer;
+}
+
+.exist {
+  color: green;
+  order: -1;
+}
+
+.dontexist {
+  color: lightcoral;
+  margin-bottom: -10px;
+}
+
+p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-variant: small-caps;
+  margin-bottom: 4px;
+}
+
+#clickMe2 {
+  background-color: rgb(243, 227, 179);
+  border: none;
+  cursor: pointer;
+  transform: translateX(-30%);
+  font-size: 17px;
+  padding-left: 12px;
+  text-decoration: none;
+}
+#clickMe2:hover {
+  background-color: rgb(218, 230, 193);
+}
+#clickMe2:active {
+  position: relative;
+  top: 1px;
+}
+#clickMe2:focus {
+  outline: none;
+}

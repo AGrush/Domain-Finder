@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Domain Finder</title>
+</head>
+
+<body>
+    <h1>domain finder</h1>
+    <form id="form1" method="post" onsubmit="return jumbleWordsUp()">
+        <div class="wrapper">
+            <div id="container1">
+                <p>first half</p>
+                <input type="text" required="required" name="firstWord" id="firstWord"><span onclick="removeFields()"
+                    class="deletebtn">-</span>
+                <span id="addFields" class="add" data="container1" onclick="addFields()">&nbsp;&nbsp;&nbsp; &#65291;
+                    &nbsp;&nbsp;&nbsp;</span>
+            </div>
+            <label class="container">
+                <input name="hyphen" type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+            <div id="container2">
+                <p>second half</p>
+                <input type="text" name="secondWord" id="secondWord"><span onclick="removeFields()"
+                    class="deletebtn">-</span>
+                <span id="addFields2" class="add" data="container2" onclick="addFields()">&nbsp;&nbsp;&nbsp; &#65291;
+                    &nbsp;&nbsp;&nbsp;</span>
+            </div>
+            <div class="domCheckboxWrapper">
+                <label class="container4">
+                    <input id="cominput" name="com" type="checkbox" checked>
+                    <span id="com" class="checkmarkcom"></span>
+                </label>
+                <label class="container5">
+                    <input id="coukinput" name="couk" type="checkbox">
+                    <span id="couk" class="checkmarkcom"></span>
+                </label>
+            </div>
+        </div>
+        <input id="clickMe2" type="submit" value="&#x1F50E;"></input>
+    </form>
+    </div>
+
+    <!-- <form method="post">
+        Check if domain available: <input type="text" name="domainURL" id="domainURL">&nbsp;&nbsp;
+        <button id="clickMe" type="submit" value="clickme" onclick="checkURLs(this.form.domainURL.value)">
+        do it</button>
+    </form> -->
+
+    <div id="availableDomains"></div>
+
+    <script>
+
+        function removeFields() {
+            deleteBtn = event.target
+            inputElement = document.getElementById(event.target.previousSibling.name)
+            if (inputElement !== 'firstWord') {
+                inputElement.parentNode.removeChild(inputElement);
+                deleteBtn.parentNode.removeChild(deleteBtn);
+            }
+
+        }
+
+        var a = 1;
+        var b = 1;
+        function addFields() {
+
+            var formId = event.target.previousSibling.previousSibling.id;
+            var container = document.getElementById(event.target.attributes[2].value);
+            //console.log(event.target.attributes[2].value)
+            if (event.target.attributes[2].value == 'container1') {
+                var input = document.createElement("input");
+                var deleteBtn = `<span onclick="removeFields()" class="deletebtn">-</span>`
+                input.type = "text";
+                input.name = 'firstWord' + a;
+                input.id = 'firstWord' + a;
+                container.insertBefore(input, container.lastChild.previousSibling)
+                input.insertAdjacentHTML('afterend', deleteBtn)
+                a++
+                //console.log(a)
+            }
+            if (event.target.attributes[2].value == 'container2') {
+                var input = document.createElement("input");
+                var deleteBtn = `<span onclick="removeFields()" class="deletebtn">-</span>`
+                input.type = "text";
+                input.name = 'secondWord' + b;
+                input.id = 'secondWord' + b;
+                container.insertBefore(input, container.lastChild.previousSibling)
+                input.insertAdjacentHTML('afterend', deleteBtn)
+                b++
+                //console.log(b)
+            }
+        }
+
+        function jumbleWordsUp() {
+            var form = document.querySelector('#form1');
+            var firstWords = serializeArray(form);
+            var comCheckbox = document.getElementById('cominput').checked;
+            var coukCheckbox = document.getElementById('coukinput').checked;
+            var comBtn = document.getElementById('com');
+            var coukBtn = document.getElementById('couk');
+            var hyphen = 0;
+            var domain = [];
+            var arrOne = [];
+            var arrTwo = [];
+
+
+            //if domain not selected
+            if (!comCheckbox && !coukCheckbox) {
+                comBtn.click();
+                coukBtn.click();
+                domain.push('.com');
+                domain.push('.co.uk');
+            }
+
+            firstWords.forEach(input => {
+                if (input.name.includes('first')) {
+                    arrOne.push(input.value)
+                } else if (input.name.includes('second')) {
+                    arrTwo.push(input.value)
+                }
+
+                if (input.name.includes('hyphen')) {
+                    hyphen = 1;
+                }
+
+                if (input.name.includes('couk')) {
+                    domain.push('.co.uk')
+                }
+
+                if (input.name.includes('com')) {
+                    domain.push('.com')
+                }
+            })
+
+            combineArrays(arrOne, arrTwo, hyphen, domain);
+
+            return false;
+        }
+
+        function combineArrays(arrOne, arrTwo, hyphen, domain) {
+            combinedArr = [];
+
+            //combine first word array with second word array in every possible way forwards
+            for (var i = 0; i < arrOne.length; i++) {
+                for (var j = 0; j < arrTwo.length; j++) {
+                    //for each type of domain, so .co.uk and .com
+                    domain.forEach(dom => {
+                        combinedArr.push(arrOne[i].concat(arrTwo[j]) + dom);
+
+                        if (hyphen) {
+                            combinedArr.push((arrOne[i] + '-').concat(arrTwo[j]) + dom);
+                        }
+                    })
+                }
+            }
+            checkURLs(combinedArr)
+        }
+
+        function checkURLs(domainURLs) {
+            document.querySelector('#availableDomains').innerHTML = 'Loading...'
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.querySelector('#availableDomains').innerHTML = '';
+
+                    //array split by new line
+                    array = this.responseText.split('\\n');
+
+                    //split array1 values with comma and make the new array2 with all split values
+                    array2 = [];
+                    for (var i = 0; i < array.length; i++) {
+                        //if a comma exists in one of the arrays values
+                        if (array[i].includes(',')) {
+
+                            //find total number of commas in value
+                            totalCommaSeparatedValues = array[i].match(/,/g).length + 1;
+                            // console.log(array[i])
+                            // console.log('totalcommavalues' + totalCommaSeparatedValues)
+                            var split = array[i].split(",");
+                            for (var j = 0; j < totalCommaSeparatedValues; j++) {
+                                //push all the values around the commas to the new array2
+                                array2.push(split[j]);
+                            }
+                        } else array2.push(array[i]) //otherwise just copy accross value to array2
+                    }
+
+                    //for each bit of split info check for the info we need
+                    for (i = 0; i < array2.length; i++) {
+                        //if domain exists
+                        if (array2[i].includes('Domain Name')) {
+                            var newDiv = document.createElement('div')
+                            newDiv.classList.add('res')
+                            newDiv.classList.add('dontexist')
+                            document.querySelector('#availableDomains').appendChild(newDiv)
+                            const domainName = array2[i].split('Domain Name: ')[1];
+                            newDiv.innerHTML = `<span>${domainName}</span>`
+                            //if com domain doesn't exist
+                        } else if (array2[i].includes('No match')) {
+                            var newDiv = document.createElement('div')
+                            newDiv.classList.add('res')
+                            newDiv.classList.add('exist')
+                            document.querySelector('#availableDomains').appendChild(newDiv)
+                            const domainName = array2[i].split('No match for \\"')[1].split('\\"')[0];
+                            newDiv.innerHTML = `<span>${domainName}</span>`
+                        }
+
+                        //if co.uk domain doesn't exist (different syntax for .co.uk search response so need different logic)
+                        if (array2[i].includes('Domain name:')) {
+                            var newDiv = document.createElement('div')
+                            newDiv.classList.add('res')
+                            newDiv.classList.add('dontexist')
+                            document.querySelector('#availableDomains').appendChild(newDiv)
+                            const domainName = array2[i + 1];
+                            newDiv.innerHTML = `<span>${domainName}</span>`
+                        }
+                    }
+
+                    //console.log(array2)
+                }
+            };
+            xhttp.open('GET', 'http://localhost:8080/domainfinder/domain/' + domainURLs, true);
+            xhttp.send();
+        }
+
+
+        var serializeArray = function (form) {
+            // Setup our serialized data
+            var serialized = [];
+
+            // Loop through each field in the form
+            for (var i = 0; i < form.elements.length; i++) {
+
+                var field = form.elements[i];
+
+                // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
+                if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
+
+                // If a multi-select, get all selections
+                if (field.type === 'select-multiple') {
+                    for (var n = 0; n < field.options.length; n++) {
+                        if (!field.options[n].selected) continue;
+                        serialized.push({
+                            name: field.name,
+                            value: field.options[n].value
+                        });
+                    }
+                }
+
+                // Convert field data to a query string
+                else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+                    serialized.push({
+                        name: field.name,
+                        value: field.value
+                    });
+                }
+            }
+
+            return serialized;
+
+        };
+
+    </script>
+</body>
+
+</html>
