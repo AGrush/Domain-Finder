@@ -2,7 +2,8 @@
 /* The container */
 .container,
 .container4,
-.container5 {
+.container5,
+.container6 {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-variant: small-caps;
@@ -28,7 +29,8 @@
 
 /* Create a custom checkbox */
 .checkmark,
-.checkmarkcom {
+.checkmarkcom,
+.checkmarkreverse {
   position: absolute;
   top: 0;
   left: 0;
@@ -41,10 +43,15 @@
   width: 64px;
 }
 
+.checkmarkreverse {
+    width: 76px;
+}
+
 /* On mouse-over, add a grey background color */
 .container:hover input ~ .checkmark,
 .container4:hover input ~ .checkmarkcom,
-.container5:hover input ~ .checkmarkcom {
+.container5:hover input ~ .checkmarkcom,
+.container6:hover input ~ .checkmarkreverse {
   background-color: #ccc;
   position: absolute;
   left: 0;
@@ -80,21 +87,30 @@
   /* border: lightgoldenrodyellow 3px solid; */
 }
 
+.container6:hover input ~ .checkmarkreverse:after {
+    content: "reverse";
+    position: absolute;
+    left: 7px;
+    top: 2px;
+    border-width: 0 3px 3px 0;
+    display: block;
+  
+    /* border: lightgoldenrodyellow 3px solid; */
+  }
+
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark,
 .container4 input:checked ~ .checkmarkcom,
-.container5 input:checked ~ .checkmarkcom {
-  background-color: rgb(112, 179, 233);
+.container5 input:checked ~ .checkmarkcom,
+.container6 input:checked ~ .checkmarkreverse {
+  background-color: rgb(252, 146, 146);
 }
 
 /* Show the checkmark when checked */
 .container input:checked ~ .checkmark:after,
-.container4
-  input:checked
-  ~ .checkmarkcom:after
-  .container5
-  input:checked
-  ~ .checkmarkcom:after {
+.container4 input:checked ~ .checkmarkcom:after,
+.container5 input:checked ~ .checkmarkcom:after,
+.container6 input:checked ~ .checkmarkreverse:after {
   display: block;
 }
 
@@ -112,7 +128,8 @@
 }
 
 .container4 .checkmarkcom:after,
-.container5 .checkmarkcom:after {
+.container5 .checkmarkcom:after,
+.container6 .checkmarkreverse:after {
   content: "com";
   position: absolute;
   left: 7px;
@@ -124,6 +141,10 @@
 }
 .container5 .checkmarkcom:after {
   content: "co.uk";
+}
+
+.container6 .checkmarkreverse:after {
+    content: "reverse";
 }
 
 .domCheckboxWrapper {
@@ -206,7 +227,13 @@ form {
 }
 
 input {
-  display: inline;
+    display: inline;
+    border: none;
+    border-bottom: 4px solid aliceblue;
+    padding: 3px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    text-transform: uppercase;
 }
 
 .add {
@@ -240,10 +267,12 @@ input {
 }
 
 .deletebtn {
-  width: 20px;
-  display: inline-block;
-  background-color: rgb(242, 175, 175);
-  cursor: pointer;
+    width: 20px;
+    margin-top: 5px;
+    height: 23px;
+    display: inline-block;
+    background-color: aliceblue;
+    cursor: pointer;
 }
 
 .exist {

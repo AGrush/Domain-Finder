@@ -40,6 +40,10 @@
                     <input id="coukinput" name="couk" type="checkbox">
                     <span id="couk" class="checkmarkcom"></span>
                 </label>
+                <label class="container6">
+                    <input id="reverseinput" name="reverse" type="checkbox">
+                    <span id="reverse" class="checkmarkreverse"></span>
+                </label>
             </div>
         </div>
         <input id="clickMe2" type="submit" value="&#x1F50E;"></input>
@@ -66,7 +70,6 @@
 
             var formId = event.target.previousSibling.previousSibling.id;
             var container = document.getElementById(event.target.attributes[2].value);
-            //console.log(event.target.attributes[2].value)
             if (event.target.attributes[2].value == 'container1') {
                 var input = document.createElement("input");
                 var deleteBtn = `<span onclick="removeFields()" class="deletebtn">-</span>`
@@ -76,7 +79,6 @@
                 container.insertBefore(input, container.lastChild.previousSibling)
                 input.insertAdjacentHTML('afterend', deleteBtn)
                 a++
-                //console.log(a)
             }
             if (event.target.attributes[2].value == 'container2') {
                 var input = document.createElement("input");
@@ -87,7 +89,6 @@
                 container.insertBefore(input, container.lastChild.previousSibling)
                 input.insertAdjacentHTML('afterend', deleteBtn)
                 b++
-                //console.log(b)
             }
         }
 
@@ -102,6 +103,7 @@
             var domain = [];
             var arrOne = [];
             var arrTwo = [];
+            var reverse = document.getElementById('reverseinput').checked;
 
 
             //if domain not selected
@@ -132,18 +134,18 @@
                 }
             })
 
-            combineArrays(arrOne, arrTwo, hyphen, domain);
+            combineArrays(arrOne, arrTwo, hyphen, domain, reverse);
 
             return false;
         }
 
-        function combineArrays(arrOne, arrTwo, hyphen, domain) {
+        function combineArrays(arrOne, arrTwo, hyphen, domain, reverse) {
             combinedArr = [];
 
-            //combine first word array with second word array in every possible way forwards
+            //combine first word array with second word array in every possible way FORWARDS
             for (var i = 0; i < arrOne.length; i++) {
                 for (var j = 0; j < arrTwo.length; j++) {
-                    //for each type of domain, so .co.uk and .com
+                    //for each type of domain, so .co.uk and .com FORWARDS
                     domain.forEach(dom => {
                         combinedArr.push(arrOne[i].concat(arrTwo[j]) + dom);
 
@@ -151,8 +153,28 @@
                             combinedArr.push((arrOne[i] + '-').concat(arrTwo[j]) + dom);
                         }
                     })
+
                 }
             }
+
+            if(reverse) {
+                //combine first word array with second word array in every possible way BACKWARDS
+                for (var i = 0; i < arrOne.length; i++) {
+                    for (var j = 0; j < arrTwo.length; j++) {
+
+                        //for each type of domain, so .co.uk and .com BACKWARDS
+                        domain.forEach(dom => {
+                            combinedArr.push(arrTwo[j].concat(arrOne[i]) + dom);
+
+                            if (hyphen) {
+                                combinedArr.push((arrTwo[j] + '-').concat(arrOne[i]) + dom);
+                            }
+                        })
+
+                    }
+                }
+            }
+
             checkURLs(combinedArr)
         }
 
@@ -174,8 +196,7 @@
 
                             //find total number of commas in value
                             totalCommaSeparatedValues = array[i].match(/,/g).length + 1;
-                            // console.log(array[i])
-                            // console.log('totalcommavalues' + totalCommaSeparatedValues)
+
                             var split = array[i].split(",");
                             for (var j = 0; j < totalCommaSeparatedValues; j++) {
                                 //push all the values around the commas to the new array2
@@ -215,7 +236,6 @@
                         }
                     }
 
-                    //console.log(array2)
                 }
             };
             xhttp.open('GET', 'https://ag-domain-finder.herokuapp.com/domainfinder/domain/' + domainURLs, true);
