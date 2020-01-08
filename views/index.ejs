@@ -61,6 +61,15 @@
 
     <script>
 
+        //check if safari
+        const uA = navigator.userAgent;
+        const vendor = navigator.vendor;
+        if (/Safari/i.test(uA) && /Apple Computer/.test(vendor) && !/Mobi|Android/i.test(uA)) {
+            document.querySelector('h1').classList.add('safari')
+        } else {
+            document.querySelector('h1').classList.add('notsafari')
+        }
+
         function removeFields() {
             deleteBtn = event.target
             inputElement = document.getElementById(event.target.previousSibling.name)
