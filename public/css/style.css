@@ -182,7 +182,7 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    color: magenta;
+    color: rgb(253, 127, 137);
     z-index: 1;
     pointer-events: none;
     mix-blend-mode: multiply;
@@ -489,31 +489,3 @@ p {
     left: -7px;
   }
 }
-
-@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
-{ @media {
-    /*
-      Define here the CSS styles applied only to Safari browsers
-      (any version and any device)
-     */
-
-     h1 .glitch2::after {
-      color: yellow;
-      animation: none;
-      z-index: -1;
-    }
-    h1::before {
-      animation: none;
-      color: black;
-    }
-    h1::after {
-    }
-    h1 .glitch1::before {
-      animation: none;
-      color: black;
-    }
-    h1 .glitch1::after {
-      animation: none;
-      color: black;
-    }
-}}
