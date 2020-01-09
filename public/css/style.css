@@ -199,6 +199,14 @@ header {
     z-index: -1;
     clip-path: inset(62% 0 0 0);
   }
+
+  h1 .glitch2::after {
+    color: black;
+    animation: trans5 3.2s infinite;
+    z-index: -1;
+    clip-path: inset(62% 0 0 0);
+  }
+
   h1.notsafari::before {
     clip-path: inset(0 0 43% 0);
     animation: trans6 3.2s infinite;
