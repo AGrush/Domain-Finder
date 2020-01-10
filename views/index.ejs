@@ -197,8 +197,15 @@
         }
 
         function checkURLs(domainURLs) {
+            //set results back to empty on a new request
             document.querySelector('#availableDomains').innerHTML = 'Loading...'
+
+            //send all the urls to be checked
             var xhttp = new XMLHttpRequest();
+            xhttp.open('GET', `${url}/domainfinder/domain/${domainURLs}`, true);
+            xhttp.send();
+
+            //process results
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     document.querySelector('#availableDomains').innerHTML = '';
@@ -256,8 +263,8 @@
 
                 }
             };
-            xhttp.open('GET', `${url}/domainfinder/domain/${domainURLs}`, true);
-            xhttp.send();
+
+            
         }
 
 
