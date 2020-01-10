@@ -17,7 +17,7 @@
             Domain Finder
         </h1>
     </header>
-    <form id="form1" method="post" onsubmit="return jumbleWordsUp()">
+    <form id="form1" method="post" onsubmit="return processForm()">
         <div class="wrapper">
             <div id="container1">
                 <p>first half</p>
@@ -60,7 +60,7 @@
     <div id="availableDomains"></div>
 
     <script>
-        //get url for xhttp request
+        //get the current url for xhttp request
         const url = window.location.origin;
 
         //check if safari
@@ -72,6 +72,7 @@
             document.querySelector('h1').classList.add('notsafari')
         }
 
+        //remove input button
         function removeFields() {
             deleteBtn = event.target
             inputElement = document.getElementById(event.target.previousSibling.name)
@@ -82,6 +83,7 @@
 
         }
 
+        //add input field button
         var a = 1;
         var b = 1;
         function addFields() {
@@ -110,7 +112,8 @@
             }
         }
 
-        function jumbleWordsUp() {
+        //process form values and checkboxes into arrays and booleans
+        function processForm() {
             var form = document.querySelector('#form1');
             var firstWords = serializeArray(form);
             var comCheckbox = document.getElementById('cominput').checked;
@@ -157,6 +160,7 @@
             return false;
         }
 
+        //combine all the inputted words in every way that user selected
         function combineArrays(arrOne, arrTwo, hyphen, domain, reverse) {
             combinedArr = [];
 
@@ -196,6 +200,7 @@
             checkURLs(combinedArr)
         }
 
+        //check all the final URLs via server
         function checkURLs(domainURLs) {
             //set results back to empty on a new request
             document.querySelector('#availableDomains').innerHTML = 'Loading...'
@@ -232,7 +237,7 @@
 
                     //for each bit of split info check for the info we need
                     for (i = 0; i < array2.length; i++) {
-                        //if domain exists
+                        //if com domain exists
                         if (array2[i].includes('Domain Name')) {
                             var newDiv = document.createElement('div')
                             newDiv.classList.add('res')
@@ -240,7 +245,7 @@
                             document.querySelector('#availableDomains').appendChild(newDiv)
                             const domainName = array2[i].split('Domain Name: ')[1];
                             newDiv.innerHTML = `<span>${domainName}</span>`
-                            //if com domain doesn't exist
+                            //if com or co.uk domain doesn't exist
                         } else if (array2[i].includes('No match')) {
                             var newDiv = document.createElement('div')
                             newDiv.classList.add('res')
@@ -250,7 +255,7 @@
                             newDiv.innerHTML = `<span>${domainName}</span>`
                         }
 
-                        //if co.uk domain doesn't exist (different syntax for .co.uk search response so need different logic)
+                        //if co.uk domain exists (different syntax for .co.uk search response so need different logic)
                         if (array2[i].includes('Domain name:')) {
                             var newDiv = document.createElement('div')
                             newDiv.classList.add('res')
@@ -267,7 +272,7 @@
             
         }
 
-
+        //serialise form data and return
         var serializeArray = function (form) {
             // Setup our serialized data
             var serialized = [];
@@ -299,9 +304,6 @@
                     });
                 }
             }
-
-            
-
 
             return serialized;
 
