@@ -60,6 +60,8 @@
     <div id="availableDomains"></div>
 
     <script>
+        //get url for xhttp request
+        const url = window.location.origin;
 
         //check if safari
         const uA = navigator.userAgent;
@@ -254,7 +256,7 @@
 
                 }
             };
-            xhttp.open('GET', 'https://ag-domain-finder.herokuapp.com/domainfinder/domain/' + domainURLs, true);
+            xhttp.open('GET', `${url}/domainfinder/domain/${domainURLs}`, true);
             xhttp.send();
         }
 
@@ -291,12 +293,8 @@
                 }
             }
 
-            const url = window.location.origin;
-            const host = window.location.host;
-            var pathArray = window.location.pathname.split( '/' );
-            console.log('url = ' + url)
-            console.log('host = ' + host)
-            console.log('patharray = ' + pathArray)
+            
+
 
             return serialized;
 
