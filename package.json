@@ -4,7 +4,7 @@
   "description": "find domains with various word combinations",
   "main": "index.js",
   "dependencies": {
-    "ejs": "~1.0.0",
+    "ejs": "~2.5.5",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "whois-info": "^1.0.6"
